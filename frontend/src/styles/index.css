@@ -1,0 +1,194 @@
+@import-normalize ;
+
+@import 'tailwind-base.css';
+
+body.no-animate *,
+body.no-animate *::before,
+body.no-animate *::after {
+  transition: none !important;
+  animation: none !important;
+}
+
+html {
+  font-size: 100%;
+  font-family: 'Poppins', sans-serif;
+  background-color: #0b1621;
+}
+
+body {
+  font-size: 14px;
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.4;
+  padding-right: 0px !important;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  overflow: auto;
+  position: relative;
+  margin: 0;
+}
+
+h1,
+.h1 {
+  font-size: 24px;
+}
+
+h2,
+.h2 {
+  font-size: 20px;
+}
+
+h3,
+.h3 {
+  font-size: 16px;
+}
+
+h4,
+.h4 {
+  font-size: 15px;
+}
+
+h5,
+.h5 {
+  font-size: 13px;
+}
+
+h6,
+.h6 {
+  font-size: 12px;
+}
+
+.ps>.ps__rail-y,
+.ps>.ps__rail-x {
+  z-index: 99;
+}
+
+a[role=button] {
+  text-decoration: none;
+}
+
+[role="tooltip"] {
+  z-index: 9999;
+}
+
+a {
+  color: lightgreen;
+}
+
+#loadingDiv {
+  background-color: #0b1621;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  color: white;
+  z-index: 99999;
+}
+
+
+@media only screen and (min-width: 992px) {
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background-color: rgba(0, 0, 0, 0);
+  }
+
+  ::-webkit-scrollbar:hover {
+    width: 8px;
+    height: 8px;
+    background-color: rgba(0, 0, 0, 0.06);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border: 2px solid transparent;
+    border-radius: 20px;
+  }
+
+  ::-webkit-scrollbar-thumb:active {
+    border-radius: 20px;
+  }
+}
+
+
+@keyframes autofill {
+
+  0%,
+  100% {
+    background: transparent;
+  }
+}
+
+input:-webkit-autofill {
+  animation-delay: 1s;
+  animation-name: autofill !important;
+  animation-fill-mode: both;
+  -webkit-box-shadow: 0 0 0 100px transparent inset !important;
+}
+
+.wrapper {
+  max-width: 1280px;
+}
+
+.MuiButton-root:hover {
+  text-decoration: none !important;
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.MuiButton-root .MuiTouchRipple-root span {
+  background-color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.headerDiv {
+  background-color: #222B39;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.MuiTableSortLabel-root:hover {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.MuiTableSortLabel-root.MuiTableSortLabel-active {
+  color: white !important;
+}
+
+.MuiTableSortLabel-root.MuiTableSortLabel-active.MuiTableSortLabel-root.MuiTableSortLabel-active .MuiTableSortLabel-icon {
+  color: white !important;
+}
+
+.pagination .MuiIconButton-root.Mui-disabled {
+  color: grey !important;
+}
+
+.css-1pndypt-Input {
+  color: white !important;
+}
+
+.primary-background {
+  background-color: #0D0C0C;
+}
+
+.secondary-background {
+  background-color: #161616;
+}
+
+.div-back {
+  background-color: #262626;
+}
+
+.button-back {
+  background-color: #FEFB76;
+}
+
+#react-select-2-listbox {
+  background-color: #161616 !important;
+}
+
+@import 'tables.css';
+
+@import 'tailwind.css';
