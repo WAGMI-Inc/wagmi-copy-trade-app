@@ -35,6 +35,26 @@ export const UserService = (function () {
         return axiosService.post(apiUrls.RESET_AUTH_PASSWORD, payload);
     }
 
+    const getDepositWallet = async () => {
+        return axiosService.get(apiUrls.GET_DEPOSIT_WALLET);
+    }
+
+    const getUserTransactions = async () => {
+        return axiosService.get(apiUrls.GET_USER_TRANSACTIONS);
+    }
+
+    const getUserAutoSchedule = async () => {
+        return axiosService.get(apiUrls.GET_USER_AUTO_SCHEDULE);
+    }
+
+    const setAutoSchedule = async (amount) => {
+        return axiosService.post(apiUrls.SET_AUTO_SCHEDULE, { amount: amount });
+    }
+
+    const removeAutoSchedule = async () => {
+        return axiosService.get(apiUrls.REMOVE_AUTO_SCHEDULE);
+    }
+
     return {
         login,
         signup,
@@ -44,5 +64,10 @@ export const UserService = (function () {
         getUserInfo,
         sendResetEmail,
         resetAuthPassword,
+        getDepositWallet,
+        getUserTransactions,
+        getUserAutoSchedule,
+        setAutoSchedule,
+        removeAutoSchedule
     };
 })();

@@ -5,6 +5,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import AnalyticsIcon from '@material-ui/icons/BarChart';
 import TradingIcon from '@material-ui/icons/ShowChart'
 import WalletIcon from '@material-ui/icons/AccountBalanceWallet';
+import SnipeIcon from '@material-ui/icons/BluetoothSearchingOutlined'
 import { useHistory } from 'react-router';
 import { useGlobal } from 'store/hooks';
 
@@ -73,6 +74,12 @@ function Navigation(props) {
             <div className={clsx(navText === 'wallet_traking' && classes.selected, classes.button, 'relative pl-12 text-white mt-4')} onClick={() => { setNavText('wallet_traking'); history.push('/wallet_traking') }}>
                 <WalletIcon className={navText === 'wallet_traking' ? classes.iconSelected : 'text-white'}></WalletIcon>
                 <p className='text-10 font-400 list-item-text capitalize ml-8'>Wallet Traking</p>
+                {navText === 'wallet_traking' && <div className={clsx(classes.selectedDiv, 'w-3')}></div>}
+            </div>
+
+            <div className={clsx(navText === 'sniper' && classes.selected, classes.button, 'relative pl-12 text-white mt-4')} onClick={() => { setNavText('sniper'); history.push('/sniper') }}>
+                <SnipeIcon className={navText === 'sniper' ? classes.iconSelected : 'text-white'}></SnipeIcon>
+                <p className='text-10 font-400 list-item-text capitalize ml-8'>Sniper</p>
                 {navText === 'wallet_traking' && <div className={clsx(classes.selectedDiv, 'w-3')}></div>}
             </div>
         </div >

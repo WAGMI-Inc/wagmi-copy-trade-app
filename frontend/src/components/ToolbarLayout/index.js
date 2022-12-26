@@ -6,9 +6,12 @@ import clsx from 'clsx';
 import MenuIcon from '@material-ui/icons/MenuOpen';
 import UserMenu from 'components/UserMenu';
 import { useGlobal } from 'store/hooks';
+import { useHistory } from 'react-router';
+import { useUser } from 'store/hooks';
+
 // import { useWeb3React } from '@web3-react/core';
 // import { injected } from 'components/wallet/Connectors';
-import NotificationIcon from '@material-ui/icons/Notifications';
+// import NotificationIcon from '@material-ui/icons/Notifications';
 // import { LOCAL_STORAGE_KEY } from 'consts';
 // import { useWallet } from 'store/hooks';
 
@@ -17,11 +20,9 @@ const useStyles = makeStyles(() => ({
         backgroundColor: "#161616",
     },
     walletButton: {
-        backgroundColor: '#9810A6',
-        transition: '0.5s',
-        "&:hover": {
-            backgroundColor: 'rgba(133,13,155,0.27)',
-        }
+        background: 'rgba(254, 251, 118, 0.1)',
+        color: '#FEFB76',
+        border: '1px solid rgba(254, 251, 118, 0.5)'
     },
     button: {
         padding: '8px',
@@ -35,7 +36,10 @@ const useStyles = makeStyles(() => ({
 
 function ToolbarLayout(props) {
     const classes = useStyles(props);
-    const { showMobileNav, setShowMobileNav, navText } = useGlobal();
+    const { showMobileNav, setShowMobileNav, navText, setNavText } = useGlobal();
+    const { userWallet } = useUser();
+    const history = useHistory();
+
     // const { deactivate, activate } = useWeb3React();
     // const { isNetworkCorrect, switchNetwork } = useWallet();
 
@@ -103,13 +107,20 @@ function ToolbarLayout(props) {
                                 Connect Wallet
                             </button>
                     } */}
-                    <div>
-                        <NotificationIcon className='mr-4 text-gray'></NotificationIcon>
+                    <div className='flex items-center'>
+                        {/* <NotificationIcon className='mr-4 text-gray'></NotificationIcon> */}
+                        <p className='mr-8 text-12'>{userWallet.balance}ETH</p>
+
+                        <button className={clsx(classes.walletButton, 'px-12 py-4 flex items-center rounded-2 text-11')}
+                            onClick={() => { history.push('/wallet'); setNavText('wallet') }}
+                        >
+                            WALLET
+                        </button>
                         <UserMenu />
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
 

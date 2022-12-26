@@ -6,6 +6,9 @@ const initialState = {
         values: []
     },
     user: {},
+    userWallet: { balance: 0, address: '' },
+    userTransactions: [],
+    autoScheduleAmount: 0
 };
 
 export default function userReducer(state = initialState, { type, payload }) {
@@ -19,6 +22,21 @@ export default function userReducer(state = initialState, { type, payload }) {
             return {
                 ...state,
                 user: payload
+            }
+        case USER.SET_WALLET_INFO:
+            return {
+                ...state,
+                userWallet: payload
+            }
+        case USER.SET_USER_TRANSACTIONS:
+            return {
+                ...state,
+                userTransactions: payload,
+            }
+        case USER.SET_AUTO_SCHEDULE:
+            return {
+                ...state,
+                autoScheduleAmount: payload
             }
         default:
             return state;

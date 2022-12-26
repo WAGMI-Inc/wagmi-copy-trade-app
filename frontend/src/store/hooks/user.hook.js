@@ -4,12 +4,14 @@ import moment from "moment";
 import { UserService } from "services";
 import { LOCAL_STORAGE_KEY } from "consts";
 import { toast } from "react-toastify";
+import Web3 from "web3";
+import config from "config/config";
 
 const { TOKEN, USER_DATA } = LOCAL_STORAGE_KEY;
 
 export const useUser = () => {
     const dispatch = useDispatch();
-    const { portfolioData } = useSelector(({ user }) => user);
+    const { portfolioData, user, userWallet, userTransactions, autoScheduleAmount } = useSelector(({ user }) => user);
 
     const getPortfolioData = async (value) => {
         try {
@@ -94,12 +96,72 @@ export const useUser = () => {
         }
     }
 
+    const getDepositWallet = async () => {
+        try {
+            const result = await UserService.getDepositWallet();
+            const web3 = new Web3(new Web3.providers.HttpProvider(config.rpcUrls[0]));
+            var balance = await web3.eth.getBalance(result.data); //Will give value in.
+            balance = Web3.utils.fromWei(balance, 'ether');
+            dispatch({ type: USER.SET_WALLET_INFO, payload: { address: result.data, balance: balance } });
+            return true;
+        } catch ({ response, message }) {
+            return false;
+        }
+    }
+
+    const getUserTransactions = async () => {
+        try {
+            const result = await UserService.getUserTransactions();
+            dispatch({ type: USER.SET_USER_TRANSACTIONS, payload: result.data });
+        } catch ({ response, message }) {
+            return false;
+        }
+    }
+
+    const getUserAutoSchedule = async () => {
+        try {
+            const result = await UserService.getUserAutoSchedule();
+            dispatch({ type: USER.SET_AUTO_SCHEDULE, payload: result.data });
+        } catch ({ response, message }) {
+            return false;
+        }
+    }
+
+    const removeAutoSchedule = async () => {
+        try {
+            await UserService.removeAutoSchedule();
+            dispatch({ type: USER.SET_AUTO_SCHEDULE, payload: 0 });
+            return true;
+        } catch ({ response, message }) {
+            return false;
+        }
+    }
+
+    const setAutoSchedule = async (amount) => {
+        try {
+            const result = await UserService.setAutoSchedule(amount);
+            dispatch({ type: USER.SET_AUTO_SCHEDULE, payload: result.data });
+            return true;
+        } catch ({ response, message }) {
+            return false;
+        }
+    }
 
     return {
+        user,
+        userWallet,
         portfolioData,
+        userTransactions,
+        autoScheduleAmount,
+        getDepositWallet,
         getPortfolioData,
         login,
         logOut,
-        signup
+        signup,
+        getUserTransactions,
+        getUserAutoSchedule,
+        setAutoSchedule,
+        removeAutoSchedule,
+
     };
 };

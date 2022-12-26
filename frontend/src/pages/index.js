@@ -17,6 +17,11 @@ import SignUpPage from './Auth/signup';
 // import { useGlobal, useWallet } from 'store/hooks';
 import HomePage from 'pages/home-page';
 import AnalyticsPage from './analytics-page';
+import walletPage from './wallet-page';
+import SniperPage from './sniper-page';
+import { useUser } from 'store/hooks';
+import { toast } from 'react-toastify'
+import Pusher from 'pusher-js';
 const { TOKEN } = LOCAL_STORAGE_KEY;
 
 const useStyles = makeStyles(() => ({
@@ -48,11 +53,29 @@ const useStyles = makeStyles(() => ({
 
 function Pages() {
     const classes = useStyles();
+    const { getDepositWallet, user, getUserTransactions } = useUser();
     // const { activate } = useWeb3React();
     // const { showNotification } = useGlobal();
     // const { isNetworkCorrect, switchNetwork } = useWallet();
 
     useEffect(() => {
+        const init = async () => {
+            if (isLoggedIn())
+                await getDepositWallet();
+        }
+        init();
+
+        const pusher = new Pusher(process.env.REACT_APP_PUSHER_APP_KEY, {
+            cluster: process.env.REACT_APP_PUSHER_APP_CLUSTER
+        });
+        const channel = pusher.subscribe('wagmi-channel');
+        channel.bind('deposit', function (data) {
+            toast.success(data.transaction.value + 'ETH deposited!')
+            if (data.transaction.user_id === user._id) {
+                getDepositWallet();
+                getUserTransactions();
+            }
+        });
         // const init = async () => {
         //     const isCorrect = await isNetworkCorrect();
         //     console.log(isCorrect);
@@ -73,6 +96,7 @@ function Pages() {
         //     }
         // }
         // init();
+
     }, []);// eslint-disable-line react-hooks/exhaustive-deps
 
     const isLoggedIn = () => {
@@ -98,6 +122,8 @@ function Pages() {
                                                     <Route exact path="/analytics" component={AnalyticsPage} />
                                                     <Route exact path="/trading" component={TradingPage} />
                                                     <Route exact path="/wallet_traking" component={walletTrakingPage} />
+                                                    <Route exact path="/wallet" component={walletPage} />
+                                                    <Route exact path="/sniper" component={SniperPage} />
                                                     <Redirect to="/home"></Redirect>
                                                 </Switch>
                                             </div>

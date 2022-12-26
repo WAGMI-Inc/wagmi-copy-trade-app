@@ -40,8 +40,6 @@ function UserMenu() {
     const { account } = useWeb3React();
     const history = useHistory();
 
-
-    console.log(account);
     const userMenuClick = event => {
         setUserMenu(event.currentTarget);
     };

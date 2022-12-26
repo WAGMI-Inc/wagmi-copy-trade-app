@@ -162,7 +162,7 @@ function SignUpPage() {
                                 style={{ marginBottom: "1rem" }}
                             />
                             {password !== "" && password.length < 8 ?
-                                <p className='text-red-700 mb-12 -mt-14'>Password must be at least 8 characters.</p>
+                                <p className='text-red-700 mb-12 -mt-10'>Password must be at least 8 characters.</p>
                                 : null
                             }
                             <TextField

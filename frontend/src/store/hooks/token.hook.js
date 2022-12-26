@@ -35,7 +35,6 @@ export const useToken = () => {
     const getSelectedAnalytic = async (tokenId) => {
         try {
             const result = await TokenService.getTokenById({ token_id: tokenId });
-            console.log(result.data);
             dispatch({ type: TOKEN.SET_SELECTED_ANALYTIC, payload: result.data });
             return true;
         } catch ({ response, message }) {
